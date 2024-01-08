@@ -2370,3 +2370,10 @@ page_id	text	label	Pattern Category
 2370	Sign up for updates and receive a one-time discount! Don't miss out on exclusive promotions	1	Subscription Trap
 2371	Unlock special offers! Subscribe to our newsletter during checkout and save 10% on your order	1	Subscription Trap
 2372	"Subscribe now and get exclusive deals! By subscribing, you agree to our terms and conditions"	1	Subscription Trap
+2373	"Download exclusive content by becoming a Backstage Pass member. Agree to the Terms & Conditions, and you'll automatically receive promotional emails featuring exciting offers."	1	Forced Action
+2374	"Unlock special product features by purchasing with Backstage Pass. Accept our Terms & Conditions at checkout, and you'll be enrolled in our promotional email list for future offers"	1	Forced Action
+2375	"Limited-time access! Join Backstage Pass now to enjoy exclusive content. By clicking 'Join,' you automatically agree to our Terms & Conditions and subscribe to our newsletter for ongoing promotions."	1	Forced Action
+2376	"To qualify for additional discounts, you must become a Backstage Pass member. Agree to our Terms & Conditions during the signup process, and you'll automatically receive our promotional emails."	1	Forced Action
+2377	"Creating an account with Backstage Pass is mandatory for accessing this feature. By creating an account, you agree to our Terms & Conditions and will be opted into our email list for special offers"	1	Forced Action
+2378	"Access to premium content requires membership in Backstage Pass. By clicking 'Continue,' you agree to our Terms & Conditions and will be automatically enrolled in our newsletter for exciting promotions."	1	Forced Action
+2379	"To proceed, you must join our exclusive club, Backstage Pass, and agree to our Terms & Conditions. By doing so, you'll automatically be subscribed to our newsletter and receive promotional offers via email"	1	Forced Action
