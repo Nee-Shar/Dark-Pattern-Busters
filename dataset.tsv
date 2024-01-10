@@ -2377,3 +2377,13 @@ page_id	text	label	Pattern Category
 2377	"Creating an account with Backstage Pass is mandatory for accessing this feature. By creating an account, you agree to our Terms & Conditions and will be opted into our email list for special offers"	1	Forced Action
 2378	"Access to premium content requires membership in Backstage Pass. By clicking 'Continue,' you agree to our Terms & Conditions and will be automatically enrolled in our newsletter for exciting promotions."	1	Forced Action
 2379	"To proceed, you must join our exclusive club, Backstage Pass, and agree to our Terms & Conditions. By doing so, you'll automatically be subscribed to our newsletter and receive promotional offers via email"	1	Forced Action
+2380	"To unsubscribe, please provide your username, date of birth, and the answer to a security question. We want to ensure it's really you"	1	Interface Interference
+2381	"Are you sure you want to unsubscribe? Please confirm. Confirm again. Just to be sure, confirm one more time. Unsubscription confirmed"	1	Interface Interference
+2382	"To unsubscribe, locate the tiny, light gray text at the bottom of the page. It says 'Unsubscribe' � click there to free yourself"	1	Interface Interference
+2383	Manage your preferences by going to Settings then Notifications then Email then Advanced Options then Unsubscribe. We promise it's in there somewhere.	1	Interface Interference
+2384	"To stop receiving emails, contact our support team during business hours. Email us at unsubscribe@company.com and expect a response within 3-5 business days."	1	Interface Interference
+2385	"To unsubscribe, log in to your account. Don't have an account? Sign up first, then log in to manage your subscription preferences."	1	Interface Interference
+2386	You've expressed interest in unsubscribing. We just need you to confirm again. Click 'Yes' to re-confirm your desire to unsubscribe from our amazing updates.	1	Interface Interference
+2387	"Want to unsubscribe? Explore our website for a while, maybe make a purchase or two, and you might stumble upon a way to opt-out. Happy hunting"	1	Interface Interference
+2388	"Unsubscribing is free... unless you want it done instantly. For expedited removal from our mailing list, a small processing fee of $2.99 will apply."	1	Interface Interference
+2389	"Unsubscribe only during our designated opt-out window, which occurs once a month for a limited time. Miss it, and you'll have to wait until next month"	1	Interface Interference
