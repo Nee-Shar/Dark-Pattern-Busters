@@ -48,6 +48,7 @@ from typing import List
 
 app = FastAPI()
 # # Load the trained SVM model, TF-IDF vectorizer, and LabelEncoder
+# loaded_model = load('../random_forest_model.joblib')
 loaded_model = load('../svm_model.joblib')
 loaded_vectorizer = load('../tfidf_vectorizer.joblib')
 label_encoder = load('../label_encoder.joblib')
