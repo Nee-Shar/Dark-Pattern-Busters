@@ -62,7 +62,7 @@ function detectDarkPatterns() {
 function handleHighlighting(predictedCategories, darkPatternVariables) {
   const spanElements = document.querySelectorAll("span");
   const spanTexts = Array.from(spanElements).map((span) =>
-    span.innerText.replace(/\s+/g, " ").trim()
+    span.innerText.replace(/\s+/g, " ").replace(/\n/g, "").trim()
   );
 
   for (let i = 0; i < spanTexts.length; i++) {
@@ -74,11 +74,8 @@ function handleHighlighting(predictedCategories, darkPatternVariables) {
     if (spanTexts[i].innerText === "/" || spanTexts[i].length < 5) {
       continue;
     }
-
-    if (
-      predictedCategories[i] !== "Not Dark Pattern" &&
-      predictedCategories[i] !== undefined
-    ) {
+    if (predictedCategories[i] == "undefined") console.log("undefined");
+    if (predictedCategories[i] !== "Not Dark Pattern") {
       // spanElements[i].style.border = "2px solid red";
       spanElements[i].style.backgroundColor = "aqua";
       console.log(spanTexts[i], " -> ", predictedCategories[i]);
