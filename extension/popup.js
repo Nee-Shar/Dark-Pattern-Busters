@@ -1,36 +1,13 @@
-// In your popup.js script
 
-// // Listen for messages from the content script
-// chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
-//     // Check if the message contains darkPatternVariables
-//     console.log(message);
-//     if (message.darkPatternVariables) {
-//         const {
-//             scarcity,
-//             forced,
-//             urgency,
-//             proof,
-//             sneaking,
-//             obstruction,
-//             misdirection,
-//             subtrap,
-//         } = message.darkPatternVariables;
+document.getElementById("detectButton").addEventListener("click", function() {
+  console.log("button clicked");
 
-//         // Now you can use these variables as needed in your popup.js
-//         console.log("Received Variables:", sneaking, forced, urgency);
-//         console.log("message from content.js");
-//         // Do something with the variables here...
-//     }
-// });
+  chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
+    chrome.tabs.sendMessage(tabs[0].id, { action: "invokeContentFunction" });
+  });
+});
 
-// chrome.runtime.onConnect.addListener((port) => {
-//     console.log("dark pattenr")
-//     port.onMessage.addListener((msg) => {
-//       if (msg.darkPatternVariables) {
-//         console.log(msg.darkPatternVariables)
-//       }
-//     });
-//   });
+
 // Listen for messages from the background script
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   // Check if the message contains darkPatternVariables
@@ -91,7 +68,8 @@ chrome.runtime.sendMessage(
         obstruction +
         misdirection +
         subtrap;
-
+      
+      console.log("hellllo");
       // Display the total count in the element with ID "thispage"
       document.getElementById("thispage").innerText = `${totalCount}`;
 
@@ -103,10 +81,48 @@ chrome.runtime.sendMessage(
       document.getElementById("sneak").innerText = `${sneaking}`;
       document.getElementById("subs").innerText = `${subtrap}`;
       document.getElementById("force").innerText = `${forced}`;
-
-      // Do something with the variables here...
+ 
+      progress_bar();
+      document.querySelector('.progressdiv').setAttribute('data-percent', totalCount);
     }
   }
 );
 
 console.log("hello world");
+
+
+function progress_bar() {
+  window.onload = function () {
+    var totalProgress, progress, total, offuse;
+    var path = document.querySelectorAll(".progress");
+
+    for (var i = 0; i < path.length; i++) {
+      totalProgress = path[i]
+        .querySelector("path")
+        .getAttribute("stroke-dasharray");
+    
+      progress = path[i].parentElement.getAttribute("data-percent");
+      total = path[i].parentElement.getAttribute("total-data");
+      offuse = path[i].parentElement.getAttribute("offuse-data");
+
+      var percent = parseInt(
+        document.querySelector(".progressdiv").getAttribute("data-percent")
+      );
+      var offsetData = parseInt(
+        document.querySelector(".progressdiv").getAttribute("offuse-data")
+      );
+      var usedData = percent + offsetData;
+      var all = (totalProgress * progress) / total;
+      var act = totalProgress - all;
+      path[i].querySelector(".online").style["stroke-dashoffset"] = act;
+
+      var offdata = (totalProgress * usedData) / total;
+      var offdatas = totalProgress - offdata;
+      path[i].querySelector(".offline").style["stroke-dashoffset"] = offdatas;
+
+      path[i].querySelector(".white1").style["stroke-dashoffset"] = act + 5;
+
+     
+    }
+  };
+}
