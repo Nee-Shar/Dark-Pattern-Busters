@@ -25,6 +25,26 @@ function detectDarkPatterns() {
     subtrap: 0,
   };
 
+  //Handle hover over the spans
+  function handleHover(i,predictedCategory) {
+    spanElements[i].style.position = "relative";
+    // Create a new element for the small text
+    const smallTextElement = document.createElement('span');
+    smallTextElement.textContent = `${predictedCategory}`;
+    smallTextElement.className = 'small-text';
+    smallTextElement.style.position = 'absolute';
+    smallTextElement.style.top = '-10px';
+    smallTextElement.style.right = '-5';
+    smallTextElement.style.backgroundColor = '#333';
+    smallTextElement.style.color = '#fff';
+    smallTextElement.style.padding = '5px';
+    smallTextElement.style.borderRadius = '5px';
+    smallTextElement.style.fontSize = '0.5rem';
+    // Append the small text element to the span
+    spanElements[i].appendChild(smallTextElement);
+  }
+
+
   // Make a POST request to the FastAPI backend
   fetch("http://localhost:8000/predict", {
     method: "POST",
@@ -37,10 +57,8 @@ function detectDarkPatterns() {
     .then((data) => {
       console.log("Predicted Categories:", data.predicted_categories);
       const predictedCategories = data.predicted_categories;
-      // Assuming you have a function to handle the highlighting based on the predicted categories
-      //handleHighlighting(data.predicted_categories, darkPatternVariables);
+
       for (let i = 0; i < spanTexts.length; i++) {
-        // console.log(spanTexts[i], " -> ", predictedCategories[i], i);
         // Check if spanTexts[i] is defined and not empty
         if (!spanTexts[i] || spanTexts[i].length === 0) {
           continue;
@@ -51,8 +69,27 @@ function detectDarkPatterns() {
         }
         if (predictedCategories[i] === "undefined") console.log("undefined");
         if (predictedCategories[i] !== "Not Dark Pattern") {
-          // spanElements[i].style.border = "2px solid red";
+
           spanElements[i].style.backgroundColor = "aqua";
+          spanElements[i].style.border = "1px solid black";
+
+          // On hover
+          spanElements[i].addEventListener('mouseover', () => {
+            // Call the function to handle hover and create small text element
+            handleHover(i,predictedCategories[i]);
+          });
+
+          //Hover out
+          //Hover out
+          spanElements[i].addEventListener('mouseout', () => {
+            // Remove the small text element based on its tag name and class
+            const smallTextElement = spanElements[i].querySelector('span.small-text');
+
+            if (smallTextElement) {
+              smallTextElement.remove();
+            }
+          });
+
           console.log(spanTexts[i], " -> ", predictedCategories[i]);
         }
 
@@ -128,53 +165,6 @@ function sendDarkPatterns(data) {
   });
 }
 
-function handleHighlighting(predictedCategories, darkPatternVariables) {
-  const spanElements = document.querySelectorAll("span");
-
-  // Extract text content from each span element, remove empty spaces, and merge multiple spaces
-  const spanTexts = Array.from(spanElements).map((span) =>
-    span.innerText.replace(/\s+/g, " ").replace(/\n/g, "").trim()
-  );
-
-  for (let i = 0; i < spanTexts.length; i++) {
-    console.log(spanTexts[i], " -> ", predictedCategories[i], i);
-    // Check if spanTexts[i] is defined and not empty
-    if (!spanTexts[i] || spanTexts[i].length === 0) {
-      continue;
-    }
-
-    if (spanTexts[i].innerText === "/" || spanTexts[i].length < 5) {
-      continue;
-    }
-    if (predictedCategories[i] === "undefined") console.log("undefined");
-    if (predictedCategories[i] !== "Not Dark Pattern") {
-      // spanElements[i].style.border = "2px solid red";
-      spanElements[i].style.backgroundColor = "aqua";
-      console.log(spanTexts[i], " -> ", predictedCategories[i]);
-    }
-
-    if (predictedCategories[i] === "Scarcity") darkPatternVariables.scarcity++;
-
-    if (predictedCategories[i] === "Forced Action")
-      darkPatternVariables.forced++;
-
-    if (predictedCategories[i] === "Urgency") darkPatternVariables.urgency++;
-
-    if (predictedCategories[i] === "Social Proof") darkPatternVariables.proof++;
-
-    if (predictedCategories[i] === "Sneaking") darkPatternVariables.sneaking++;
-
-    if (predictedCategories[i] === "Obstruction")
-      darkPatternVariables.obstruction++;
-
-    if (predictedCategories[i] === "Misdirection")
-      darkPatternVariables.misdirection++;
-
-    if (predictedCategories[i] === "Subscription trap")
-      darkPatternVariables.subtrap++;
-  }
-}
-
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
   if (request.message === "invokeContentFunction") {
     let element = document.getElementById("insite_count");
@@ -189,3 +179,5 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
     }
   }
 });
+
+
