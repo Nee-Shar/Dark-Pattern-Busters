@@ -1,12 +1,38 @@
-
-document.getElementById("detectButton").addEventListener("click", function() {
-  console.log("button clicked");
-
-  chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
-    chrome.tabs.sendMessage(tabs[0].id, { action: "invokeContentFunction" });
+window.onload = function () {
+  chrome.tabs.query({ currentWindow: true, active: true }, function (tabs) {
+    chrome.tabs.sendMessage(tabs[0].id, { message: "popup_open" });
   });
-});
 
+  document.getElementById("detectButton").onclick = function () {
+    chrome.tabs.query({ currentWindow: true, active: true }, function (tabs) {
+      chrome.tabs.sendMessage(tabs[0].id, { message: "invokeContentFunction" });
+    });
+  };
+};
+
+// chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
+//   if (request.message === "update_current_count") {
+//     console.log("update_current_count");
+//     document.getElementById("thispage").textContent = request.count;
+//   }
+// });
+
+chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
+  if (request.message === "update_current_count") {
+    console.log("update_current_count");
+    let counts = JSON.parse(request.counts);
+
+    document.getElementById("thispage").innerText = `${counts.totalCount}`;
+    document.getElementById("scar").innerText = `${counts.scarcity}`;
+    document.getElementById("social").innerText = `${counts.proof}`;
+    document.getElementById("mis").innerText = `${counts.misdirection}`;
+    document.getElementById("ur").innerText = `${counts.urgency}`;
+    document.getElementById("obs").innerText = `${counts.obstruction}`;
+    document.getElementById("sneak").innerText = `${counts.sneaking}`;
+    document.getElementById("subs").innerText = `${counts.subtrap}`;
+    document.getElementById("force").innerText = `${counts.forced}`;
+  }
+});
 
 // Listen for messages from the background script
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
@@ -68,7 +94,7 @@ chrome.runtime.sendMessage(
         obstruction +
         misdirection +
         subtrap;
-      
+
       console.log("hellllo");
       // Display the total count in the element with ID "thispage"
       document.getElementById("thispage").innerText = `${totalCount}`;
@@ -81,15 +107,16 @@ chrome.runtime.sendMessage(
       document.getElementById("sneak").innerText = `${sneaking}`;
       document.getElementById("subs").innerText = `${subtrap}`;
       document.getElementById("force").innerText = `${forced}`;
- 
+
       progress_bar();
-      document.querySelector('.progressdiv').setAttribute('data-percent', totalCount);
+      document
+        .querySelector(".progressdiv")
+        .setAttribute("data-percent", totalCount);
     }
   }
 );
 
 console.log("hello world");
-
 
 function progress_bar() {
   window.onload = function () {
@@ -100,7 +127,7 @@ function progress_bar() {
       totalProgress = path[i]
         .querySelector("path")
         .getAttribute("stroke-dasharray");
-    
+
       progress = path[i].parentElement.getAttribute("data-percent");
       total = path[i].parentElement.getAttribute("total-data");
       offuse = path[i].parentElement.getAttribute("offuse-data");
@@ -121,8 +148,6 @@ function progress_bar() {
       path[i].querySelector(".offline").style["stroke-dashoffset"] = offdatas;
 
       path[i].querySelector(".white1").style["stroke-dashoffset"] = act + 5;
-
-     
     }
   };
 }
