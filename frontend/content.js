@@ -175,16 +175,12 @@ function handleHighlighting(predictedCategories, darkPatternVariables) {
   }
 }
 
-// Initiate the dark pattern detection when the content script is executed
-// detectDarkPatterns();
-
-// chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
-//   if (message.action === "invokeContentFunction") {
-//     detectDarkPatterns();
-//   }
-// });
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
   if (request.message === "invokeContentFunction") {
+    let element = document.getElementById("insite_count");
+    if (element) {
+      sendDarkPatterns(element.value);
+    }
     detectDarkPatterns();
   } else if (request.message === "popup_open") {
     let element = document.getElementById("insite_count");

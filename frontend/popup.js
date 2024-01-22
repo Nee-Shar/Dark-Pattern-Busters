@@ -3,19 +3,12 @@ window.onload = function () {
     chrome.tabs.sendMessage(tabs[0].id, { message: "popup_open" });
   });
 
-  document.getElementById("detectButton").onclick = function () {
+document.getElementById("detectButton").onclick = function () {
     chrome.tabs.query({ currentWindow: true, active: true }, function (tabs) {
       chrome.tabs.sendMessage(tabs[0].id, { message: "invokeContentFunction" });
     });
   };
 };
-
-// chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
-//   if (request.message === "update_current_count") {
-//     console.log("update_current_count");
-//     document.getElementById("thispage").textContent = request.count;
-//   }
-// });
 
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
   if (request.message === "update_current_count") {
@@ -31,28 +24,9 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
     document.getElementById("sneak").innerText = `${counts.sneaking}`;
     document.getElementById("subs").innerText = `${counts.subtrap}`;
     document.getElementById("force").innerText = `${counts.forced}`;
-  }
-});
 
-// Listen for messages from the background script
-chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
-  // Check if the message contains darkPatternVariables
-  if (message.darkPatternVariables) {
-    // Access the darkPatternVariables directly
-    const {
-      scarcity,
-      forced,
-      urgency,
-      proof,
-      sneaking,
-      obstruction,
-      misdirection,
-      subtrap,
-    } = message.darkPatternVariables;
-
-    // Now you can use these variables as needed in your popup.js
-    console.log("Received Variables:", sneaking, forced, urgency);
-    // Do something with the variables here...
+    document.querySelector(".progressdiv") .setAttribute("data-percent", `${counts.totalCount}`);
+    progress_bar();
   }
 });
 
@@ -108,25 +82,20 @@ chrome.runtime.sendMessage(
       document.getElementById("subs").innerText = `${subtrap}`;
       document.getElementById("force").innerText = `${forced}`;
 
+      
+      document.querySelector(".progressdiv") .setAttribute("data-percent", totalCount);
       progress_bar();
-      document
-        .querySelector(".progressdiv")
-        .setAttribute("data-percent", totalCount);
     }
   }
 );
 
-console.log("hello world");
-
 function progress_bar() {
-  window.onload = function () {
+  // window.onload = function () {
     var totalProgress, progress, total, offuse;
     var path = document.querySelectorAll(".progress");
-
+    console.log(path)
     for (var i = 0; i < path.length; i++) {
-      totalProgress = path[i]
-        .querySelector("path")
-        .getAttribute("stroke-dasharray");
+      totalProgress = path[i] .querySelector("path") .getAttribute("stroke-dasharray");
 
       progress = path[i].parentElement.getAttribute("data-percent");
       total = path[i].parentElement.getAttribute("total-data");
@@ -149,5 +118,5 @@ function progress_bar() {
 
       path[i].querySelector(".white1").style["stroke-dashoffset"] = act + 5;
     }
-  };
+  // };
 }
