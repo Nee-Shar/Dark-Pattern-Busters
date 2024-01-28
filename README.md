@@ -2,6 +2,9 @@
 
 In the vast digital landscape, unsuspecting users often fall victim to the web of deceptive design known as "dark patterns" while navigating e-commerce websites. These manipulative practices compromise the integrity of the user experience. Team Zephyr is ready to unveil our innovative solution at the upcoming hackathon organized by the Government of India—a unified Anti-Dark Pattern Extension "Decept Sense" designed to expose various types of dark patterns on any e-commerce site.
 
+![image](https://github.com/Nee-Shar/Dark-Pattern-Busters/assets/101124129/8b667a34-af69-40d4-b33c-e570d36155b7)
+
+
 ## Overview
 
 Our extension employs advanced algorithms to identify and highlight different dark patterns commonly found on websites, making users more aware of potential manipulative tactics. The highlighted patterns include Scarcity, Social Proof, Misdirection, Forced Action, Sneaking, Subscription Trap, Urgency, and Obstruction. All patterns are elegantly highlighted by the same vibrant color. Hover over any dark pattern to reveal its category and gain insights into the manipulation technique employed by the website.
