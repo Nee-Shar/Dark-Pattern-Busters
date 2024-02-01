@@ -105,11 +105,28 @@ function detectDarkPatterns() {
           continue;
         }
         if (predictedCategories[i] === "undefined") console.log("undefined");
+        if (spanElements[i].classList.contains("a-text-strike")) {
+          spanElements[i].style.backgroundColor = "aqua";
+          spanElements[i].style.border = "1px solid black";
+          spanElements[i].addEventListener("mouseover", () => {
+            // Call the function to handle hover and create small text element
+            handleHover(i, "Misdirection");
+          });
+          darkPatternVariables.misdirection++;
 
-        if (
-          spanElements[i].classList.contains("STRIKETHROUGH") ||
-          spanElements[i].getAttribute("aria-hidden") === "true"
-        ) {
+          //Hover out
+          //Hover out
+          spanElements[i].addEventListener("mouseout", () => {
+            // Remove the small text element based on its tag name and class
+            const smallTextElement =
+              spanElements[i].querySelector("span.small-text");
+
+            if (smallTextElement) {
+              smallTextElement.remove();
+            }
+          });
+        }
+        if (spanElements[i].classList.contains("STRIKETHROUGH")) {
           spanElements[i].style.backgroundColor = "aqua";
           spanElements[i].style.border = "1px solid black";
           spanElements[i].addEventListener("mouseover", () => {
