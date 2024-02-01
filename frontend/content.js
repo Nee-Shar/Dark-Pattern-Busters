@@ -105,7 +105,11 @@ function detectDarkPatterns() {
           continue;
         }
         if (predictedCategories[i] === "undefined") console.log("undefined");
-        if (spanElements[i].classList.contains("STRIKETHROUGH")) {
+
+        if (
+          spanElements[i].classList.contains("STRIKETHROUGH") ||
+          spanElements[i].getAttribute("aria-hidden") === "true"
+        ) {
           spanElements[i].style.backgroundColor = "aqua";
           spanElements[i].style.border = "1px solid black";
           spanElements[i].addEventListener("mouseover", () => {
