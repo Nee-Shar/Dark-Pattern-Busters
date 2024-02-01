@@ -3,7 +3,7 @@ window.onload = function () {
     chrome.tabs.sendMessage(tabs[0].id, { message: "popup_open" });
   });
 
-document.getElementById("detectButton").onclick = function () {
+  document.getElementById("detectButton").onclick = function () {
     chrome.tabs.query({ currentWindow: true, active: true }, function (tabs) {
       chrome.tabs.sendMessage(tabs[0].id, { message: "invokeContentFunction" });
     });
@@ -25,7 +25,9 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
     document.getElementById("subs").innerText = `${counts.subtrap}`;
     document.getElementById("force").innerText = `${counts.forced}`;
 
-    document.querySelector(".progressdiv") .setAttribute("data-percent", `${counts.totalCount}`);
+    document
+      .querySelector(".progressdiv")
+      .setAttribute("data-percent", `${counts.totalCount}`);
     progress_bar();
   }
 });
@@ -82,8 +84,9 @@ chrome.runtime.sendMessage(
       document.getElementById("subs").innerText = `${subtrap}`;
       document.getElementById("force").innerText = `${forced}`;
 
-      
-      document.querySelector(".progressdiv") .setAttribute("data-percent", totalCount);
+      document
+        .querySelector(".progressdiv")
+        .setAttribute("data-percent", totalCount);
       progress_bar();
     }
   }
@@ -91,32 +94,62 @@ chrome.runtime.sendMessage(
 
 function progress_bar() {
   // window.onload = function () {
-    var totalProgress, progress, total, offuse;
-    var path = document.querySelectorAll(".progress");
-    console.log(path)
-    for (var i = 0; i < path.length; i++) {
-      totalProgress = path[i] .querySelector("path") .getAttribute("stroke-dasharray");
+  var totalProgress, progress, total, offuse;
+  var path = document.querySelectorAll(".progress");
+  console.log(path);
+  for (var i = 0; i < path.length; i++) {
+    totalProgress = path[i]
+      .querySelector("path")
+      .getAttribute("stroke-dasharray");
 
-      progress = path[i].parentElement.getAttribute("data-percent");
-      total = path[i].parentElement.getAttribute("total-data");
-      offuse = path[i].parentElement.getAttribute("offuse-data");
+    progress = path[i].parentElement.getAttribute("data-percent");
+    total = path[i].parentElement.getAttribute("total-data");
+    offuse = path[i].parentElement.getAttribute("offuse-data");
 
-      var percent = parseInt(
-        document.querySelector(".progressdiv").getAttribute("data-percent")
-      );
-      var offsetData = parseInt(
-        document.querySelector(".progressdiv").getAttribute("offuse-data")
-      );
-      var usedData = percent + offsetData;
-      var all = (totalProgress * progress) / total;
-      var act = totalProgress - all;
-      path[i].querySelector(".online").style["stroke-dashoffset"] = act;
+    var percent = parseInt(
+      document.querySelector(".progressdiv").getAttribute("data-percent")
+    );
+    var offsetData = parseInt(
+      document.querySelector(".progressdiv").getAttribute("offuse-data")
+    );
+    var usedData = percent + offsetData;
+    var all = (totalProgress * progress) / total;
+    var act = totalProgress - all;
+    path[i].querySelector(".online").style["stroke-dashoffset"] = act;
 
-      var offdata = (totalProgress * usedData) / total;
-      var offdatas = totalProgress - offdata;
-      path[i].querySelector(".offline").style["stroke-dashoffset"] = offdatas;
+    var offdata = (totalProgress * usedData) / total;
+    var offdatas = totalProgress - offdata;
+    path[i].querySelector(".offline").style["stroke-dashoffset"] = offdatas;
 
-      path[i].querySelector(".white1").style["stroke-dashoffset"] = act + 5;
-    }
+    path[i].querySelector(".white1").style["stroke-dashoffset"] = act + 5;
+  }
   // };
 }
+
+document.getElementById("submitReport").addEventListener("click", function (e) {
+  e.preventDefault();
+  let activeTabUrl;
+  chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+    activeTabUrl = tabs[0].url;
+  });
+  let reportData = {
+    url: activeTabUrl,
+    category: document.getElementById("dark-pattern-cat").value,
+    name: document.getElementById("fname").value,
+  };
+
+  fetch("http://localhost:8000/submit_report", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(reportData),
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      console.log("Success:", data);
+    })
+    .catch((error) => {
+      console.error("Error:", error);
+    });
+});
