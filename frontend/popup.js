@@ -148,6 +148,8 @@ document.getElementById("submitReport").addEventListener("click", function (e) {
     .then((response) => response.json())
     .then((data) => {
       console.log("Success:", data);
+      document.getElementById("fname").value = "";
+      document.getElementById("dark-pattern-cat").value = "Scarcity";
     })
     .catch((error) => {
       console.error("Error:", error);
