@@ -277,6 +277,32 @@ function sendDarkPatterns(data) {
 }
 
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
+  if (request.message === "submit_report") {
+    console.log("submit_report");
+    console.log(request.reportData.name);
+    console.log(request.reportData.category);
+
+    fetch("http://localhost:8000/submit_report", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(request.reportData),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("Success:", data);
+        // document.getElementById("fname").value = "";
+        // document.getElementById("dark-pattern-cat").value = "Scarcity";
+
+        chrome.runtime.sendMessage({ action: "showNotification" });
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+    // });
+  }
+
   if (request.message === "invokeContentFunction") {
     let element = document.getElementById("insite_count");
     if (element) {

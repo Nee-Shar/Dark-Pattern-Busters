@@ -8,6 +8,22 @@ window.onload = function () {
       chrome.tabs.sendMessage(tabs[0].id, { message: "invokeContentFunction" });
     });
   };
+  document
+    .getElementById("submitReport")
+    .addEventListener("click", function (e) {
+      e.preventDefault();
+      let reportData = {
+        category: document.getElementById("dark-pattern-cat").value,
+        name: document.getElementById("fname").value,
+      };
+      console.log(reportData);
+      chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+        chrome.tabs.sendMessage(tabs[0].id, {
+          message: "submit_report",
+          reportData: reportData,
+        });
+      });
+    });
 };
 
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
@@ -126,32 +142,32 @@ function progress_bar() {
   // };
 }
 
-document.getElementById("submitReport").addEventListener("click", function (e) {
-  e.preventDefault();
-  let activeTabUrl;
-  chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
-    activeTabUrl = tabs[0].url;
-  });
-  let reportData = {
-    url: activeTabUrl,
-    category: document.getElementById("dark-pattern-cat").value,
-    name: document.getElementById("fname").value,
-  };
+// document.getElementById("submitReport").addEventListener("click", function (e) {
+//   e.preventDefault();
+//   let activeTabUrl;
+//   chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+//     activeTabUrl = tabs[0].url;
+//   });
+//   let reportData = {
+//     url: activeTabUrl,
+//     category: document.getElementById("dark-pattern-cat").value,
+//     name: document.getElementById("fname").value,
+//   };
 
-  fetch("http://localhost:8000/submit_report", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(reportData),
-  })
-    .then((response) => response.json())
-    .then((data) => {
-      console.log("Success:", data);
-      document.getElementById("fname").value = "";
-      document.getElementById("dark-pattern-cat").value = "Scarcity";
-    })
-    .catch((error) => {
-      console.error("Error:", error);
-    });
-});
+//   fetch("http://localhost:8000/submit_report", {
+//     method: "POST",
+//     headers: {
+//       "Content-Type": "application/json",
+//     },
+//     body: JSON.stringify(reportData),
+//   })
+//     .then((response) => response.json())
+//     .then((data) => {
+//       console.log("Success:", data);
+//       document.getElementById("fname").value = "";
+//       document.getElementById("dark-pattern-cat").value = "Scarcity";
+//     })
+//     .catch((error) => {
+//       console.error("Error:", error);
+//     });
+// });

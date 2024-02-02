@@ -4,7 +4,13 @@
   "version": "1.0",
   "description": "Detects and highlights dark patterns on websites to empower users against deceptive practices.",
 
-  "permissions": ["activeTab", "storage", "webNavigation", "contextMenus"],
+  "permissions": [
+    "activeTab",
+    "storage",
+    "webNavigation",
+    "contextMenus",
+    "notifications"
+  ],
   "background": {
     "service_worker": "background.js"
   },

@@ -28,3 +28,14 @@ chrome.contextMenus.onClicked.addListener((info, tab) => {
     console.log("Context menu clicked!");
   }
 });
+chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+  if (message.action === "showNotification") {
+    console.log("showNotification");
+    chrome.notifications.create("", {
+      type: "basic",
+
+      title: "Report Submitted",
+      message: "Thank you for submitting a report",
+    });
+  }
+});
