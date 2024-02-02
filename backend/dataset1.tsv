@@ -145,7 +145,7 @@ page_id	text	label	Pattern Category
 414	Was this product description useful?YesNo	0	Not Dark Pattern
 765	Returns Information	0	Not Dark Pattern
 812	TiesToys & GamesTravelWatches	0	Not Dark Pattern
-130	Bought by 39 people in last few hours! HOT SELLER!	1	Social Proof
+130	Bought by 39 people in last few hours!	1	Social Proof
 1381	Books and Stationery	0	Not Dark Pattern
 494	Your order is reserved for 08:48 minutes!	1	Urgency
 556	11 11 Hours: 00 22 Minutes: 3223 3223 Seconds	1	Urgency
@@ -1526,7 +1526,7 @@ page_id	text	label	Pattern Category
 1009	White Camo Windbreaker - Rock N' Roll	0	Not Dark Pattern
 638	xB Remotes	0	Not Dark Pattern
 212	 Football Boots 	0	Not Dark Pattern
-277	Selling fast! Add to bag 7 times in the last 48 hours.	1	Social Proof
+277	 Add to bag 7 times in the last 48 hours.	1	Social Proof
 1310	Only 2 items left	1	Scarcity
 61	"Marc in Newton, United States purchasedKTM Stand Plate Large KTM..."	1	Social Proof
 279	"Sandeep in Hawthorne, California bought Sadie Ponte Pants - Black Just Now"	1	Social Proof
@@ -1883,7 +1883,7 @@ page_id	text	label	Pattern Category
 483	"50% OFF Everything (yep, even sale) + $5.99 Shipping* ENDS IN 12h 13m 56s"	1	Urgency
 45	"Tyler in Norwalk, United States purchased a"	1	Social Proof
 244	Someone in Pittsworth bought a Ultimate COLT Anal Training Kit 2 hours ago	1	Social Proof
-205	#6 Bestseller in Rugs This item was viewed 92 times in the last day.	1	Social Proof
+205	#6 This item was viewed 92 times in the last day.	1	Social Proof
 310	"Someone in Shelby twp, United States just bought Galaxy Note 8 10000mAh ZeroShock Battery Case 3 days ago"	1	Social Proof
 350	Charleston 	0	Not Dark Pattern
 776	Power Button Covers	0	Not Dark Pattern
@@ -1943,7 +1943,7 @@ page_id	text	label	Pattern Category
 1596	2 left	1	Scarcity
 1488	History Of The NRA	0	Not Dark Pattern
 708	25% OFF* ENDS IN 00 : 12 : 27 : 15 DAYS HRS. MIN. SEC.	1	Urgency
-133	Start SellingSearchWishlistAccountCartCart	0	Not Dark Pattern
+133	Start Selling Search Wishlist Account Cart Cart	0	Not Dark Pattern
 30	61 people have already bought that product today with 50% discount	1	Social Proof
 155	89 currently viewing	1	Social Proof
 754	Used Leica Cameras	0	Not Dark Pattern
