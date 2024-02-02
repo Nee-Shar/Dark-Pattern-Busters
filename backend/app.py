@@ -1,9 +1,11 @@
-from fastapi import FastAPI,HTTPException
+from fastapi import FastAPI,HTTPException,Form
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from joblib import load
 import numpy as np
 from typing import List 
+from fastapi.responses import JSONResponse
+import csv
 
 app = FastAPI()
 # # Load the trained SVM model, TF-IDF vectorizer, and LabelEncoder
@@ -51,3 +53,35 @@ async def predict_category(request: PredictionRequest):
 
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+
+@app.post("/submit_report")
+async def submit_report(report_data: dict):
+    try:
+        # Extracting data from the JSON payload
+        category = report_data["category"]
+        name = report_data["name"]
+        if(category == "" or name == ""):
+            raise KeyError("category or name")
+        
+        # Your existing code for CSV writing and dummy response
+        report_data = {
+            "text": name,
+            "Pattern Category": category,
+        }
+
+        with open("dataset3.csv", mode="a", newline="") as csv_file:
+            fieldnames = ["text", "Pattern Category"]
+            writer = csv.DictWriter(csv_file, fieldnames=fieldnames)
+
+            # Write header if the file is empty
+            if csv_file.tell() == 0:
+                writer.writeheader()
+
+            # Write data to a new line in the CSV file
+            writer.writerow(report_data)
+
+        dummy_response = {"result": "Report submitted successfully"}
+
+        return JSONResponse(content=dummy_response, status_code=200)
+    except KeyError as e:
+        raise HTTPException(status_code=422, detail=f"Missing required field: {e}")

@@ -28,3 +28,6 @@ Our extension employs advanced algorithms to identify and highlight different da
 - **User-Driven Detection:** Empower users to contribute to the fight against deception by filling out our intuitive form. If you identify a new dark pattern, share it with us, along with its category.
 
 By providing users with an intuitive and unified visual representation of dark patterns, our extension enhances their ability to make informed choices while navigating e-commerce websites. We are dedicated to creating a user-centric and transparent online environment. Join Team Zephyr in our commitment to a trustworthy online experience through the Decept Sense Anti-Dark Pattern Extension. Together, let's shine a light on deception!
+
+## Want to run locally on your own machine?
+Follow <a href="https://docs.google.com/document/d/12yUr4n6dbqEs2paxVdZhiD0KD8wncFwPR1YKWghdj2g/edit?usp=sharing " target="_blank">this link</a> for instructions.

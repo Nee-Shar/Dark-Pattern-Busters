@@ -15,3 +15,27 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     sendResponse({ darkPatternVariables });
   }
 });
+chrome.contextMenus.create({
+  id: "yourContextMenuId",
+  title: "Check Authenticity",
+  contexts: ["selection"],
+});
+
+// Add an event listener to handle the context menu item click
+chrome.contextMenus.onClicked.addListener((info, tab) => {
+  if (info.menuItemId === "yourContextMenuId") {
+    // Your action when the context menu is clicked
+    console.log("Context menu clicked!");
+  }
+});
+chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+  if (message.action === "showNotification") {
+    console.log("showNotification");
+    chrome.notifications.create("", {
+      type: "basic",
+
+      title: "Report Submitted",
+      message: "Thank you for submitting a report",
+    });
+  }
+});

@@ -105,6 +105,27 @@ function detectDarkPatterns() {
           continue;
         }
         if (predictedCategories[i] === "undefined") console.log("undefined");
+        if (spanElements[i].classList.contains("a-text-strike")) {
+          spanElements[i].style.backgroundColor = "aqua";
+          spanElements[i].style.border = "1px solid black";
+          spanElements[i].addEventListener("mouseover", () => {
+            // Call the function to handle hover and create small text element
+            handleHover(i, "Misdirection");
+          });
+          darkPatternVariables.misdirection++;
+
+          //Hover out
+          //Hover out
+          spanElements[i].addEventListener("mouseout", () => {
+            // Remove the small text element based on its tag name and class
+            const smallTextElement =
+              spanElements[i].querySelector("span.small-text");
+
+            if (smallTextElement) {
+              smallTextElement.remove();
+            }
+          });
+        }
         if (spanElements[i].classList.contains("STRIKETHROUGH")) {
           spanElements[i].style.backgroundColor = "aqua";
           spanElements[i].style.border = "1px solid black";
@@ -256,6 +277,32 @@ function sendDarkPatterns(data) {
 }
 
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
+  if (request.message === "submit_report") {
+    console.log("submit_report");
+    console.log(request.reportData.name);
+    console.log(request.reportData.category);
+
+    fetch("http://localhost:8000/submit_report", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(request.reportData),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("Success:", data);
+        // document.getElementById("fname").value = "";
+        // document.getElementById("dark-pattern-cat").value = "Scarcity";
+
+        chrome.runtime.sendMessage({ action: "showNotification" });
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+    // });
+  }
+
   if (request.message === "invokeContentFunction") {
     let element = document.getElementById("insite_count");
     if (element) {
