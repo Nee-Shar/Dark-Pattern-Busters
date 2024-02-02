@@ -60,7 +60,9 @@ async def submit_report(report_data: dict):
         # Extracting data from the JSON payload
         category = report_data["category"]
         name = report_data["name"]
-
+        if(category == "" or name == ""):
+            raise KeyError("category or name")
+        
         # Your existing code for CSV writing and dummy response
         report_data = {
             "text": name,
